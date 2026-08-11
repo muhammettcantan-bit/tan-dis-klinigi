@@ -26,22 +26,22 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, currentView,
     };
 
     return (
-        <header class="app-header">
-            <nav class="nav-container" aria-label="TAN DİŞ KLİNİĞİ Ana Gezinme">
+        <header className="app-header">
+            <nav className="nav-container" aria-label="TAN DİŞ KLİNİĞİ Ana Gezinme">
                 <a 
                     href="#hero" 
-                    class="brand-logo" 
+                    className="brand-logo" 
                     onClick={(e) => { e.preventDefault(); handleNavClick('hero'); }}
                     aria-label="TAN DİŞ KLİNİĞİ Ana Sayfa"
                 >
-                    <Smile class="logo-icon" style={{ color: 'var(--accent-sky)' }} size={28} />
-                    <span class="logo-text">TAN DİŞ <span class="logo-highlight">KLİNİĞİ</span></span>
+                    <Smile className="logo-icon" style={{ color: 'var(--accent-sky)' }} size={28} />
+                    <span className="logo-text">TAN DİŞ <span className="logo-highlight">KLİNİĞİ</span></span>
                 </a>
 
                 {/* Mobil Menü Butonu */}
                 <button 
                     type="button" 
-                    class={`mobile-menu-toggle ${mobileMenuOpen ? 'active' : ''}`}
+                    className={`mobile-menu-toggle ${mobileMenuOpen ? 'active' : ''}`}
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-expanded={mobileMenuOpen}
                     aria-label="Navigasyon Menüsünü Aç/Kapat"
@@ -50,12 +50,12 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, currentView,
                 </button>
                 
                 {/* Navigasyon Bağlantıları & Butonlar */}
-                <div class={`nav-menu-wrapper ${mobileMenuOpen ? 'is-open' : ''}`}>
-                    <ul class="nav-links">
+                <div className={`nav-menu-wrapper ${mobileMenuOpen ? 'is-open' : ''}`}>
+                    <ul className="nav-links">
                         <li>
                             <a 
                                 href="#hero" 
-                                class={`nav-link ${currentView === 'home' ? 'active' : ''}`}
+                                className={`nav-link ${currentView === 'home' ? 'active' : ''}`}
                                 onClick={(e) => { e.preventDefault(); handleNavClick('hero'); }}
                             >
                                 Ana Sayfa
@@ -64,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, currentView,
                         <li>
                             <a 
                                 href="#features" 
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={(e) => { e.preventDefault(); handleNavClick('features'); }}
                             >
                                 Tedavilerimiz
@@ -73,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, currentView,
                         <li>
                             <a 
                                 href="#stats" 
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={(e) => { e.preventDefault(); handleNavClick('stats'); }}
                             >
                                 İstatistikler
@@ -82,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, currentView,
                         <li>
                             <a 
                                 href="#contact" 
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={(e) => { e.preventDefault(); handleNavClick('contact'); }}
                             >
                                 Randevu & İletişim
@@ -90,10 +90,10 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, currentView,
                         </li>
                     </ul>
 
-                    <div class="nav-actions">
+                    <div className="nav-actions">
                         <button 
                             type="button" 
-                            class="btn btn-icon" 
+                            className="btn btn-icon" 
                             onClick={toggleTheme}
                             aria-label="Aydınlık/Karanlık Temayı Değiştir"
                             aria-pressed={theme === 'light'}
@@ -103,7 +103,7 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, currentView,
 
                         <button 
                             type="button" 
-                            class={`btn ${currentView === 'admin' ? 'btn-primary' : 'btn-outline'}`}
+                            className={`btn ${currentView === 'admin' ? 'btn-primary' : 'btn-outline'}`}
                             onClick={() => { setMobileMenuOpen(false); navigateTo(currentView === 'admin' ? 'home' : 'admin'); }}
                             style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
                         >

@@ -46,29 +46,29 @@ export const Features: React.FC<FeaturesProps> = ({ onFeatureClick }) => {
     ];
 
     return (
-        <section id="features" class="features-section" aria-labelledby="features-title">
-            <div class="section-header reveal-on-scroll is-visible">
-                <span class="section-tag">Uzmanlık Alanlarımız</span>
-                <h2 class="section-title" id="features-title">Tedavilerimiz & Klinik Hizmetlerimiz</h2>
-                <p class="section-subtitle">Ağız ve diş sağlığınız için en son teknoloji ve hijyenik klinik ortamı.</p>
+        <section id="features" className="features-section" aria-labelledby="features-title">
+            <div className="section-header reveal-on-scroll is-visible">
+                <span className="section-tag">Uzmanlık Alanlarımız</span>
+                <h2 className="section-title" id="features-title">Tedavilerimiz & Klinik Hizmetlerimiz</h2>
+                <p className="section-subtitle">Ağız ve diş sağlığınız için en son teknoloji ve hijyenik klinik ortamı.</p>
             </div>
 
-            <div class="features-grid">
+            <div className="features-grid">
                 {treatmentsList.map((item, index) => (
                     <article 
                         key={index}
-                        class="glass-card feature-card reveal-on-scroll is-visible"
+                        className="glass-card feature-card reveal-on-scroll is-visible"
                         onClick={() => onFeatureClick(item.title)}
                         tabIndex={0}
                         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onFeatureClick(item.title); }}
                     >
-                        <div class={`feature-icon-wrapper ${item.wrapperClass}`} aria-hidden="true">
+                        <div className={`feature-icon-wrapper ${item.wrapperClass}`} aria-hidden="true">
                             {item.icon}
                         </div>
-                        <h3 class="feature-title">{item.title}</h3>
-                        <p class="feature-desc">{item.desc}</p>
-                        <span class="card-action-text">
-                            Detaylı Bilgi & Randevu <span class="action-arrow" aria-hidden="true">→</span>
+                        <h3 className="feature-title">{item.title}</h3>
+                        <p className="feature-desc">{item.desc}</p>
+                        <span className="card-action-text">
+                            Detaylı Bilgi & Randevu <span className="action-arrow" aria-hidden="true">→</span>
                         </span>
                     </article>
                 ))}

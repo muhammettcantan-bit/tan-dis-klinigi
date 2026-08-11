@@ -157,7 +157,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
     if (!token) {
         return (
             <div style={{ maxWidth: '440px', margin: '4rem auto', padding: '0 1rem' }}>
-                <div class="glass-card" style={{ padding: '2.5rem' }}>
+                <div className="glass-card" style={{ padding: '2.5rem' }}>
                     <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                         <div style={{
                             width: '56px', height: '56px', borderRadius: '50%',
@@ -212,7 +212,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
 
                         <button 
                             type="submit" 
-                            class="btn btn-primary btn-large"
+                            className="btn btn-primary btn-large"
                             disabled={loginLoading}
                             style={{ width: '100%', justifyContent: 'center' }}
                         >
@@ -238,7 +238,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                     </p>
                 </div>
 
-                <button type="button" class="btn btn-outline" onClick={handleLogout}>
+                <button type="button" className="btn btn-outline" onClick={handleLogout}>
                     <LogOut size={16} />
                     <span>Çıkış Yap</span>
                 </button>
@@ -246,7 +246,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
 
             {/* Dashboard İstatistik Kartları */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.4rem', marginBottom: '2rem' }}>
-                <div class="glass-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+                <div className="glass-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
                     <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', background: 'rgba(14, 165, 233, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-sky)' }}>
                         <Inbox size={26} />
                     </div>
@@ -256,7 +256,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                     </div>
                 </div>
 
-                <div class="glass-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+                <div className="glass-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
                     <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', background: 'rgba(239, 68, 68, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ef4444' }}>
                         <AlertCircle size={26} />
                     </div>
@@ -266,7 +266,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                     </div>
                 </div>
 
-                <div class="glass-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+                <div className="glass-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
                     <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#10b981' }}>
                         <Clock size={26} />
                     </div>
@@ -276,7 +276,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                     </div>
                 </div>
 
-                <div class="glass-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+                <div className="glass-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
                     <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', background: 'rgba(6, 182, 212, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#06b6d4' }}>
                         <Calendar size={26} />
                     </div>
@@ -288,7 +288,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
             </div>
 
             {/* Gelişmiş Çoklu Filtre Paneli */}
-            <div class="glass-card" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
+            <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', fontWeight: 700, fontSize: '0.95rem' }}>
                     <Filter size={18} style={{ color: 'var(--accent-sky)' }} />
                     <span>Hasta Arama & Randevu Filtreleme</span>
@@ -399,7 +399,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
             </div>
 
             {/* Mesaj Listesi Tablosu */}
-            <div class="glass-card" style={{ overflow: 'hidden' }}>
+            <div className="glass-card" style={{ overflow: 'hidden' }}>
                 <div style={{ overflowX: 'auto' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                         <thead>
@@ -510,7 +510,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                                                 <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
                                                     <button 
                                                         type="button" 
-                                                        class="btn btn-primary"
+                                                        className="btn btn-primary"
                                                         style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem', minHeight: '34px' }}
                                                         onClick={(e) => { e.stopPropagation(); setReplyingMessage(msg); setReplyText(''); }}
                                                         title="Hastaya E-posta Yanıtı Gönder"
@@ -519,7 +519,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                                                     </button>
                                                     <button 
                                                         type="button" 
-                                                        class="btn btn-icon" 
+                                                        className="btn btn-icon" 
                                                         style={{ width: '34px', height: '34px' }}
                                                         onClick={(e) => { e.stopPropagation(); setSelectedMessage(msg); }}
                                                         title="Detayı Gör"
@@ -528,7 +528,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                                                     </button>
                                                     <button 
                                                         type="button" 
-                                                        class="btn btn-icon" 
+                                                        className="btn btn-icon" 
                                                         style={{ width: '34px', height: '34px', color: '#ef4444' }}
                                                         onClick={(e) => handleDelete(msg.id, e)}
                                                         title="Kaydı Sil"
@@ -553,7 +553,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                     background: 'rgba(0, 0, 0, 0.75)', backdropFilter: 'blur(8px)',
                     zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem'
                 }} onClick={() => setSelectedMessage(null)}>
-                    <div class="glass-card" style={{ maxWidth: '650px', width: '100%', padding: '2rem', position: 'relative', maxHeight: '90vh', overflowY: 'auto' }} onClick={(e) => e.stopPropagation()}>
+                    <div className="glass-card" style={{ maxWidth: '650px', width: '100%', padding: '2rem', position: 'relative', maxHeight: '90vh', overflowY: 'auto' }} onClick={(e) => e.stopPropagation()}>
                         <button 
                             type="button" 
                             onClick={() => setSelectedMessage(null)}
@@ -635,14 +635,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                             <div style={{ display: 'flex', gap: '0.6rem' }}>
                                 <button 
                                     type="button" 
-                                    class="btn btn-primary"
+                                    className="btn btn-primary"
                                     onClick={() => { setReplyingMessage(selectedMessage); setSelectedMessage(null); setReplyText(''); }}
                                 >
                                     <Reply size={16} /> Yanıtla
                                 </button>
                                 <button 
                                     type="button" 
-                                    class="btn btn-secondary"
+                                    className="btn btn-secondary"
                                     onClick={() => handleToggleRead(selectedMessage)}
                                 >
                                     {(selectedMessage.is_read == 1 || selectedMessage.is_read === true) ? 'Okunmadı Yap' : 'Okundu Yap'}
@@ -651,7 +651,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
 
                             <button 
                                 type="button" 
-                                class="btn btn-outline"
+                                className="btn btn-outline"
                                 style={{ color: '#ef4444' }}
                                 onClick={() => handleDelete(selectedMessage.id)}
                             >
@@ -669,7 +669,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                     background: 'rgba(0, 0, 0, 0.75)', backdropFilter: 'blur(8px)',
                     zIndex: 2500, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem'
                 }} onClick={() => setReplyingMessage(null)}>
-                    <div class="glass-card" style={{ maxWidth: '600px', width: '100%', padding: '2rem', position: 'relative' }} onClick={(e) => e.stopPropagation()}>
+                    <div className="glass-card" style={{ maxWidth: '600px', width: '100%', padding: '2rem', position: 'relative' }} onClick={(e) => e.stopPropagation()}>
                         <button 
                             type="button" 
                             onClick={() => setReplyingMessage(null)}
@@ -714,14 +714,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.8rem' }}>
                                 <button 
                                     type="button" 
-                                    class="btn btn-secondary"
+                                    className="btn btn-secondary"
                                     onClick={() => setReplyingMessage(null)}
                                 >
                                     İptal
                                 </button>
                                 <button 
                                     type="submit" 
-                                    class="btn btn-primary"
+                                    className="btn btn-primary"
                                     disabled={sendingReply}
                                 >
                                     {sendingReply ? 'Gönderiliyor...' : 'E-posta Gönder & Kaydet'}

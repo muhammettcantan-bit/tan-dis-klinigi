@@ -48,21 +48,21 @@ export const Stats: React.FC = () => {
     };
 
     return (
-        <section id="stats" class="stats-section" ref={sectionRef} aria-label="TAN DİŞ KLİNİĞİ İstatistikleri">
-            <div class="glass-card stats-container reveal-on-scroll is-visible">
-                <div class="stat-item">
-                    <span class="stat-number">{counts.stat1}</span><span class="stat-plus">%</span>
-                    <span class="stat-label">Mutlu Hasta Memnuniyeti</span>
+        <section id="stats" className="stats-section" ref={sectionRef} aria-label="TAN DİŞ KLİNİĞİ İstatistikleri">
+            <div className="glass-card stats-container reveal-on-scroll is-visible">
+                <div className="stat-item">
+                    <span className="stat-number">{counts.stat1}</span><span className="stat-plus">%</span>
+                    <span className="stat-label">Mutlu Hasta Memnuniyeti</span>
                 </div>
-                <div class="stat-divider" aria-hidden="true"></div>
-                <div class="stat-item">
-                    <span class="stat-number">{counts.stat2}</span><span class="stat-plus">+ Yıl</span>
-                    <span class="stat-label">Klinik & Hekim Tecrübesi</span>
+                <div className="stat-divider" aria-hidden="true"></div>
+                <div className="stat-item">
+                    <span className="stat-number">{counts.stat2}</span><span className="stat-plus">+ Yıl</span>
+                    <span className="stat-label">Klinik & Hekim Tecrübesi</span>
                 </div>
-                <div class="stat-divider" aria-hidden="true"></div>
-                <div class="stat-item">
-                    <span class="stat-number">{counts.stat3}</span><span class="stat-plus">★</span>
-                    <span class="stat-label">Hijyen ve Kalite Puanı</span>
+                <div className="stat-divider" aria-hidden="true"></div>
+                <div className="stat-item">
+                    <span className="stat-number">{counts.stat3}</span><span className="stat-plus">★</span>
+                    <span className="stat-label">Hijyen ve Kalite Puanı</span>
                 </div>
             </div>
         </section>

@@ -100,15 +100,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onSuccess, onErr
     };
 
     return (
-        <section id="contact" class="features-section" style={{ paddingTop: '2rem' }}>
-            <div class="section-header reveal-on-scroll is-visible">
-                <span class="section-tag">Online İletişim & Danışma</span>
-                <h2 class="section-title">Randevu & İletişim Formu</h2>
-                <p class="section-subtitle">Ağız ve diş sağlığı şikayetlerinizi, muayene talebinizi veya panoramik röntgeninizi hemen iletebilirsiniz.</p>
+        <section id="contact" className="features-section" style={{ paddingTop: '2rem' }}>
+            <div className="section-header reveal-on-scroll is-visible">
+                <span className="section-tag">Online İletişim & Danışma</span>
+                <h2 className="section-title">Randevu & İletişim Formu</h2>
+                <p className="section-subtitle">Ağız ve diş sağlığı şikayetlerinizi, muayene talebinizi veya panoramik röntgeninizi hemen iletebilirsiniz.</p>
             </div>
 
             <div style={{ maxWidth: '820px', margin: '0 auto' }}>
-                <div class="glass-card" style={{ padding: '2.5rem' }}>
+                <div className="glass-card" style={{ padding: '2.5rem' }}>
                     {submitted ? (
                         <div style={{ textAlign: 'center', padding: '2.5rem 1rem' }}>
                             <CheckCircle2 size={64} style={{ margin: '0 auto 1rem auto', color: '#10b981' }} />
@@ -118,7 +118,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onSuccess, onErr
                             </p>
                             <button 
                                 type="button" 
-                                class="btn btn-primary"
+                                className="btn btn-primary"
                                 onClick={() => setSubmitted(false)}
                             >
                                 Yeni Randevu Talebi Oluştur
@@ -326,7 +326,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onSuccess, onErr
 
                             <button 
                                 type="submit" 
-                                class="btn btn-primary btn-large"
+                                className="btn btn-primary btn-large"
                                 disabled={loading}
                                 style={{ width: '100%', justifyContent: 'center', marginTop: '0.5rem' }}
                             >
