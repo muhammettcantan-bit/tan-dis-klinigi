@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+!.env.example
+
+dist/
+.vite/
+
+uploads/*
+!uploads/.gitkeep
+
+backup_vanilla/
+
+server/data_fallback.json
+server/services/mailer_backup.js
