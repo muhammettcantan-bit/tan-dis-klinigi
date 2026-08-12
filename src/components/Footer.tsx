@@ -17,7 +17,7 @@ export const Footer: React.FC<FooterProps> = ({ onAdminClick }) => {
                     <p className="footer-desc">Ağız ve Diş Sağlığı Merkezi | Dijital Gülüş Tasarımı, İmplant ve Şeffaf Plak Tedavileri.</p>
                 </div>
                 <div className="footer-copyright" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.4rem' }}>
-                    <p>&copy; 2026 TAN DİŞ KLİNİĞİ. Tüm hakları saklıdır.</p>
+                    <p>© 2026 TAN DİŞ KLİNİĞİ. Tüm hakları saklıdır.</p>
                     <button 
                         type="button" 
                         onClick={onAdminClick}

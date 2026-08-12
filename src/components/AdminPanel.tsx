@@ -684,7 +684,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onSuccess, onError }) =>
                         </div>
 
                         <div style={{ padding: '1rem', background: 'var(--bg-glass-card)', borderRadius: 'var(--radius-md)', marginBottom: '1.2rem', fontSize: '0.9rem' }}>
-                            <div><b>Hasta:</b> {replyingMessage.name} &lt;{replyingMessage.email}&gt;</div>
+                            <div><b>Hasta:</b> {replyingMessage.name} ({replyingMessage.email})</div>
                             <div style={{ marginTop: '0.3rem' }}><b>Konu:</b> Re: {replyingMessage.subject}</div>
                         </div>
 

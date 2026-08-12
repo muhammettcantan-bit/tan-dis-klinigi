@@ -1,9 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import path from 'path';
-
-dotenv.config();
 
 import { initDb } from './config/db.js';
 import contactRoutes from './routes/contact.js';
