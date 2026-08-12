@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, CalendarCheck, Smile, Clock, PhoneCall, ShieldCheck, Sparkles, Award, Star } from 'lucide-react';
 
 interface HeroProps {
@@ -7,16 +7,16 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onExploreClick, onDemoClick }) => {
-    const [greeting, setGreeting] = useState('TAN DÄ°Å KLÄ°NÄ°ÄÄ° AÄ°LESÄ°NE HOÅ GELDÄ°NÄ°Z');
+    const [greeting, setGreeting] = useState('TAN DİŞ KLİNİĞİ AİLESİNE HOŞ GELDİNİZ');
 
     useEffect(() => {
         const hour = new Date().getHours();
         if (hour >= 5 && hour < 12) {
-            setGreeting('GÃ¼naydÄ±n! SaÄŸlÄ±klÄ± Bir GÃ¼lÃ¼ÅŸle GÃ¼ne BaÅŸlayÄ±n â˜€ï¸');
+            setGreeting('GÜNAYDIN! SAĞLIKLI BİR GÜLÜŞLE GÜNE BAŞLAYIN â˜€ï¸');
         } else if (hour >= 12 && hour < 18) {
-            setGreeting('TÃ¼naydÄ±n! Randevunuzu Kolayca AlÄ±n ğŸ”¥');
+            setGreeting('TÜNAYDIN! RANDEVUNUZU KOLAYCA ALIN ğŸ”¥');
         } else {
-            setGreeting('Ä°yi AkÅŸamlar! 7/24 Acil AÄŸÄ±z ve DiÅŸ SaÄŸlÄ±ÄŸÄ± ğŸŒ™');
+            setGreeting('İYİ AKŞAMLAR! 7/24 Acil AĞIZ VE DİŞ SAĞLIĞI ± ğŸŒ™');
         }
     }, []);
 
@@ -31,21 +31,21 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onDemoClick }) => {
                     </div>
                     
                     <h1 className="hero-title" id="hero-title-text">
-                        SaÄŸlÄ±klÄ± ve Estetik GÃ¼lÃ¼ÅŸler Ä°Ã§in <span className="gradient-text">TAN DÄ°Å KLÄ°NÄ°ÄÄ°</span>
+                       SAĞLIKLI VE ESTETİK GÜLÜŞLER İÇİN <span className="gradient-text">TAN DİŞ KLİNİĞİ°</span>
                     </h1>
                     
                     <p className="hero-description">
-                        Uzman hekim kadromuz, 3D dijital gÃ¼lÃ¼ÅŸ tasarÄ±mÄ± (Digital Smile Design), dikiÅŸsiz implant, zirkonyum lamine ve ÅŸeffaf plak tedavilerimiz ile doÄŸal ve Ã¶zgÃ¼venli gÃ¼lÃ¼ÅŸÃ¼nÃ¼zÃ¼ yeniden keÅŸfedin.
+                        Uzman hekim kadromuz, 3D dijital gülüş tasarımı ± (Digital Smile Design), dikiÅŸsiz implant, zirkonyum lamine ve şeffaf plak tedavilerimiz ile daha sağlıklı ve güvenli gülüşlerinizi yeniden keşfedin.
                     </p>
                     
                     <div className="hero-buttons">
                         <button type="button" className="btn btn-primary btn-large" onClick={onExploreClick}>
-                            <span>Tedavilerimizi KeÅŸfet</span>
+                            <span>Tedavilerimizi Keşfet</span>
                             <ArrowRight size={18} className="btn-arrow" />
                         </button>
                         <button type="button" className="btn btn-outline btn-large" onClick={onDemoClick}>
                             <CalendarCheck size={18} />
-                            <span>HÄ±zlÄ± Randevu Al</span>
+                            <span>Hızlı Randevu Al</span>
                         </button>
                     </div>
                 </div>
@@ -60,8 +60,8 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onDemoClick }) => {
                                     <Smile size={24} />
                                 </div>
                                 <div>
-                                    <div style={{ fontWeight: 800, fontSize: '1.05rem' }}>TAN DÄ°Å KLÄ°NÄ°ÄÄ°</div>
-                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>AÄŸÄ±z ve DiÅŸ SaÄŸlÄ±ÄŸÄ± Merkezi</div>
+                                    <div style={{ fontWeight: 800, fontSize: '1.05rem' }}>TAN DİŞ KLİNİĞİ</div>
+                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>AĞIZ VE DİŞ SAĞLIĞI± Merkezi</div>
                                 </div>
                             </div>
 
