@@ -66,7 +66,7 @@ router.get('/test-whatsapp', async (req, res) => {
 
 /**
  * POST /api/contact
- * Veritabanına kayıt, E-posta bildirimi ve WhatsApp bildirimi
+ * Veritabanına kayıt, Canlı E-posta bildirimi ve WhatsApp bildirimi
  */
 router.post('/', upload.single('attachment'), async (req, res) => {
     try {
@@ -107,15 +107,18 @@ router.post('/', upload.single('attachment'), async (req, res) => {
 
         const contactData = { name, email, phone, subject, message, fileName };
 
-        // Admin E-posta Bildirimi
-        sendAdminNotification(contactData).catch(err => {
-            console.error('❌ E-posta bildirimi hatası:', err.message || err);
-        });
+        // Canlı Admin E-posta Bildirimi (Awaited for guaranteed delivery)
+        try {
+            await sendAdminNotification(contactData);
+        } catch (mailErr) {
+            console.error('❌ E-posta bildirimi gönderim hatası:', mailErr.message || mailErr);
+        }
 
         // Kişisel WhatsApp Bildirimi
         sendWhatsAppNotification(contactData).catch(err => {
             console.error('❌ WhatsApp bildirimi hatası:', err.message || err);
         });
+
         // Telefon Bildirimi (ntfy)
         const ntfyMessage = `
 📩 Yeni İletişim Mesajı
@@ -134,9 +137,10 @@ ${message}
         sendNtfyNotification(ntfyMessage).catch(err => {
             console.error('❌ ntfy bildirimi hatası:', err.message || err);
         });
+
         return res.status(201).json({
             success: true,
-            message: 'Mesajınız, eklentiniz ve WhatsApp bildiriminiz başarıyla işlendi!',
+            message: 'Mesajınız, eklentiniz ve e-posta/WhatsApp bildiriminiz başarıyla işlendi!',
             messageId: result.insertId,
             file: fileName
         });

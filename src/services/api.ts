@@ -1,6 +1,6 @@
 import { ContactMessage, AdminStats } from '../types';
 
-const API_BASE = 'https://tan-dis-klinigi-api.onrender.com/api';
+const API_BASE = '/api';
 
 function getAuthHeaders() {
     const token = localStorage.getItem('antigravity_admin_token');

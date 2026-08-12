@@ -5,23 +5,39 @@ import path from 'path';
 // .env dosyasını ana dizinden kesin yolla yükle
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-function getTransporter() {
-    const host = process.env.SMTP_HOST || 'smtp.gmail.com';
-    const port = parseInt(process.env.SMTP_PORT || '587', 10);
-    const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+let transporterPool = null;
 
-    return nodemailer.createTransport({
-        host,
-        port,
-        secure: port === 465,
-        auth: { user, pass },
-        tls: { rejectUnauthorized: false }
-    });
+function getTransporter() {
+    if (!transporterPool) {
+        const user = process.env.SMTP_USER || 'muhammettcantan@gmail.com';
+        const pass = process.env.SMTP_PASS || 'qexaewvtaaruqyoc';
+        const host = process.env.SMTP_HOST || 'smtp.gmail.com';
+        const port = parseInt(process.env.SMTP_PORT || '587', 10);
+
+        if (host.includes('gmail')) {
+            transporterPool = nodemailer.createTransport({
+                service: 'gmail',
+                pool: true, // Açık bağlantı havuzu (Anlık 0-Gecikme gönderim)
+                maxConnections: 5,
+                maxMessages: 100,
+                auth: { user, pass }
+            });
+        } else {
+            transporterPool = nodemailer.createTransport({
+                host,
+                port,
+                pool: true,
+                secure: port === 465,
+                auth: { user, pass },
+                tls: { rejectUnauthorized: false }
+            });
+        }
+    }
+    return transporterPool;
 }
 
 /**
- * Yeni Randevu / İletişim Formu Doldurulduğunda Klinik Yöneticisine Canlı E-posta Bildirimi Gönderir
+ * Yeni Randevu / İletişim Formu Doldurulduğunda Klinik Yöneticisine Anlık E-posta Bildirimi Gönderir
  */
 export async function sendAdminNotification(contactData) {
     try {
@@ -32,30 +48,60 @@ export async function sendAdminNotification(contactData) {
         const mailOptions = {
             from: `"TAN DİŞ KLİNİĞİ Bildirim" <${smtpUser}>`,
             to: adminEmail,
-            subject: `🦷 Yeni Randevu Talebi: ${contactData.subject}`,
+            replyTo: contactData.email || smtpUser,
+            subject: `⚡ [ANLIK RANDEVU TALEBİ] ${contactData.name} - ${contactData.subject}`,
+            headers: {
+                'X-Priority': '1 (Highest)',
+                'X-MSMail-Priority': 'High',
+                'Importance': 'High'
+            },
             html: `
                 <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f0f9ff;">
-                    <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 8px; border: 1px solid #0ea5e9;">
-                        <h2 style="color: #0ea5e9; margin-top: 0;">🦷 TAN DİŞ KLİNİĞİ - Yeni Randevu Talebi</h2>
-                        <hr style="border: 0; border-top: 1px solid #eee;" />
-                        <p><strong>Hasta Adı Soyadı:</strong> ${contactData.name}</p>
-                        <p><strong>E-posta:</strong> ${contactData.email}</p>
-                        <p><strong>Telefon:</strong> ${contactData.phone}</p>
-                        <p><strong>Tedavi / Konu:</strong> ${contactData.subject}</p>
-                        <p><strong>Hasta Şikayeti / Mesaj:</strong></p>
-                        <div style="background: #f8fafc; padding: 15px; border-radius: 6px; font-style: italic;">
-                            ${contactData.message}
+                    <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 8px; border: 2px solid #0ea5e9;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #0ea5e9; padding-bottom: 12px; margin-bottom: 20px;">
+                            <h2 style="color: #0ea5e9; margin: 0;">🦷 TAN DİŞ KLİNİĞİ</h2>
+                            <span style="background: #10b981; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">ANLIK RANDEVU TALEBİ</span>
                         </div>
-                        ${contactData.fileName ? `<p><strong>Röntgen / Eklenti:</strong> ${contactData.fileName}</p>` : ''}
-                        <hr style="border: 0; border-top: 1px solid #eee;" />
-                        <p style="font-size: 12px; color: #888;">TAN DİŞ KLİNİĞİ Otomatik Hasta Randevu Bildirimi</p>
+
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <tr>
+                                <td style="padding: 8px; font-weight: bold; width: 35%; color: #475569;">Hasta Adı Soyadı:</td>
+                                <td style="padding: 8px; color: #0f172a;">${contactData.name}</td>
+                            </tr>
+                            <tr style="background-color: #f8fafc;">
+                                <td style="padding: 8px; font-weight: bold; color: #475569;">E-posta:</td>
+                                <td style="padding: 8px; color: #0ea5e9;"><a href="mailto:${contactData.email}">${contactData.email}</a></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: bold; color: #475569;">Telefon:</td>
+                                <td style="padding: 8px; color: #0f172a;"><b>${contactData.phone}</b></td>
+                            </tr>
+                            <tr style="background-color: #f8fafc;">
+                                <td style="padding: 8px; font-weight: bold; color: #475569;">Tedavi / Konu:</td>
+                                <td style="padding: 8px; color: #0ea5e9;"><b>${contactData.subject}</b></td>
+                            </tr>
+                            ${contactData.fileName ? `
+                            <tr>
+                                <td style="padding: 8px; font-weight: bold; color: #475569;">Panoramik Röntgen / Eklenti:</td>
+                                <td style="padding: 8px; color: #d97706;"><b>${contactData.fileName}</b></td>
+                            </tr>` : ''}
+                        </table>
+
+                        <div style="background: #f0f9ff; padding: 15px; border-left: 4px solid #0ea5e9; border-radius: 4px; margin-bottom: 20px;">
+                            <strong style="color: #0ea5e9; display: block; margin-bottom: 6px;">Hasta Şikayeti / Mesajı:</strong>
+                            <p style="margin: 0; color: #334155; line-height: 1.5; font-style: italic;">${contactData.message}</p>
+                        </div>
+
+                        <div style="text-align: center; border-top: 1px solid #e2e8f0; padding-top: 15px; font-size: 12px; color: #94a3b8;">
+                            TAN DİŞ KLİNİĞİ Otomatik Hasta Randevu ve Anlık İletim Servisi
+                        </div>
                     </div>
                 </div>
             `
         };
 
         const info = await transporter.sendMail(mailOptions);
-        console.log('✉️  [CANLI GMAIL SUCCESS] TAN DİŞ KLİNİĞİ - Admin E-postası Gönderildi:', info.messageId);
+        console.log('⚡ [ANLIK E-POSTA İLETİLDİ] TAN DİŞ KLİNİĞİ - Admin E-postası:', info.messageId);
         return true;
     } catch (error) {
         console.error('❌ TAN DİŞ KLİNİĞİ - Admin e-posta gönderim hatası:', error.message || error);
@@ -64,7 +110,7 @@ export async function sendAdminNotification(contactData) {
 }
 
 /**
- * Klinik Yönetim Panelinden Hastaya Canlı E-posta Yanıtı Gönderir
+ * Klinik Yönetim Panelinden Hastaya Anlık E-posta Yanıtı Gönderir
  */
 export async function sendUserReplyEmail(toEmail, toName, originalSubject, replyText) {
     try {
@@ -74,10 +120,15 @@ export async function sendUserReplyEmail(toEmail, toName, originalSubject, reply
         const mailOptions = {
             from: `"TAN DİŞ KLİNİĞİ Hasta İlişkileri" <${smtpUser}>`,
             to: toEmail,
+            replyTo: smtpUser,
             subject: `Re: ${originalSubject} - TAN DİŞ KLİNİĞİ`,
+            headers: {
+                'X-Priority': '1 (Highest)',
+                'Importance': 'High'
+            },
             html: `
                 <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f0f9ff;">
-                    <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 8px; border: 1px solid #0ea5e9;">
+                    <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 8px; border: 2px solid #0ea5e9;">
                         <h2 style="color: #0ea5e9; margin-top: 0;">Sayın ${toName},</h2>
                         <p style="font-size: 15px; color: #333; line-height: 1.6;">
                             TAN DİŞ KLİNİĞİ olarak randevu ve muayene talebiniz incelenmiş olup klinik yanıtımız aşağıda bilgilerinize sunulmuştur:
@@ -98,7 +149,7 @@ export async function sendUserReplyEmail(toEmail, toName, originalSubject, reply
         };
 
         const info = await transporter.sendMail(mailOptions);
-        console.log('✉️  [CANLI GMAIL SUCCESS] TAN DİŞ KLİNİĞİ - Hastaya Yanıt E-postası Gönderildi:', info.messageId);
+        console.log('⚡ [ANLIK E-POSTA İLETİLDİ] TAN DİŞ KLİNİĞİ - Hastaya Yanıt E-postası:', info.messageId);
         return true;
     } catch (error) {
         console.error('❌ TAN DİŞ KLİNİĞİ - Hastaya e-posta gönderim hatası:', error.message || error);
