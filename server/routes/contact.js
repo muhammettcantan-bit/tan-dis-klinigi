@@ -66,7 +66,7 @@ router.get('/test-whatsapp', async (req, res) => {
 
 /**
  * POST /api/contact
- * Veritabanına kayıt, Canlı E-posta bildirimi ve WhatsApp bildirimi
+ * Veritabanına kayıt (Anında HTTP 201 Yanıtı + Kesintisiz Arka Plan E-posta/WhatsApp Gönderimi)
  */
 router.post('/', upload.single('attachment'), async (req, res) => {
     try {
@@ -104,46 +104,49 @@ router.post('/', upload.single('attachment'), async (req, res) => {
         ];
 
         const result = await query(sql, params);
+        console.log(`✅ [DB KAYIT SUCCESS] Randevu #ID:${result.insertId} veritabanına kaydedildi.`);
 
         const contactData = { name, email, phone, subject, message, fileName };
 
-        // Canlı Admin E-posta Bildirimi (Awaited for guaranteed delivery)
-        try {
-            await sendAdminNotification(contactData);
-        } catch (mailErr) {
-            console.error('❌ E-posta bildirimi gönderim hatası:', mailErr.message || mailErr);
-        }
+        // 1. Canlı Admin E-posta Bildirimi (Arka planda kesintisiz gönderilir)
+        sendAdminNotification(contactData).then(success => {
+            if (success) {
+                console.log(`✉️ [MAIL OK] Randevu #ID:${result.insertId} e-postası Gmail'e iletildi.`);
+            } else {
+                console.warn(`⚠️ [MAIL RETRY] Randevu #ID:${result.insertId} e-postası tekrar deneniyor...`);
+            }
+        }).catch(mailErr => {
+            console.error('❌ E-posta bildirimi hatası:', mailErr.message || mailErr);
+        });
 
-        // Kişisel WhatsApp Bildirimi
+        // 2. Kişisel WhatsApp Bildirimi
         sendWhatsAppNotification(contactData).catch(err => {
             console.error('❌ WhatsApp bildirimi hatası:', err.message || err);
         });
 
-        // Telefon Bildirimi (ntfy)
+        // 3. Telefon Bildirimi (ntfy)
         const ntfyMessage = `
-📩 Yeni İletişim Mesajı
+📩 TAN DİŞ KLİNİĞİ - Yeni Randevu Talebi
 
-👤 Ad: ${name}
-📧 Mail: ${email}
+👤 Hasta: ${name}
+📧 E-posta: ${email}
 📞 Telefon: ${phone}
-
-📌 Konu:
-${subject}
-
-💬 Mesaj:
-${message}
+📌 Tedavi: ${subject}
+💬 Mesaj: ${message}
 `;
 
         sendNtfyNotification(ntfyMessage).catch(err => {
             console.error('❌ ntfy bildirimi hatası:', err.message || err);
         });
 
+        // İstemciye ANINDA "Gönderildi" yanıtı dön (Bekleme yapmadan)
         return res.status(201).json({
             success: true,
-            message: 'Mesajınız, eklentiniz ve e-posta/WhatsApp bildiriminiz başarıyla işlendi!',
+            message: 'Randevu talebiniz ve röntgen eklentiniz TAN DİŞ KLİNİĞİ sistemine başarıyla iletildi!',
             messageId: result.insertId,
             file: fileName
         });
+
     } catch (error) {
         console.error('İletişim Formu Kayıt Hatası:', error);
         return res.status(500).json({
